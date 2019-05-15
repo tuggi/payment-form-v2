@@ -33,6 +33,13 @@ body, html{
     display: inline-block;
 }
 
+.fieldInput:read-only{
+    outline: none;
+    border: 0px;
+    cursor: default;
+    user-select: none;
+}
+
 .submitBtn {
     cursor: pointer;
     font-family: Open Sans;
