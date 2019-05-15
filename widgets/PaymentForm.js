@@ -6,16 +6,19 @@ var PaymentForm = function()  {
         wrapper: null
     }
 
-    constructor();
     initialize();
 
     function initialize() {
-        var displayedFields = generateDisplayedFields();
         var hiddenFields = generateHiddenFields();
-
-
-        var submitBtn = global.submitBtn = document.createElement("button");
-        $(submitBtn).text("submit");
+        var visibleFields = generateVisibleFields();
+        
+        var submitBtn = global.submitBtn = document.createElement("input");
+        $(submitBtn).attr({
+            type: "submit",
+            id: "submit",
+            name: "submit",
+            value: "Submit"
+        });
         $(submitBtn).addClass("submitBtn");
 
         var form = global.form = document.createElement("form");
@@ -26,7 +29,7 @@ var PaymentForm = function()  {
             method: "post"
         });
         $(form).append(hiddenFields);
-        $(form).append(displayedFields);
+        $(form).append(visibleFields);
         $(form).append(submitBtn);
 
         var wrapper = global.wrapper = document.createElement("div");
@@ -35,14 +38,52 @@ var PaymentForm = function()  {
     }
 
     function generateHiddenFields() {
-
         var wrapper = document.createElement("div");
         $(wrapper).addClass("hiddenFields");
+
+        for(var x = 0; x < HIDDEN_FIELDS.length; x ++) {
+            var field = document.createElement("input");
+            $(field).attr({
+                type: HIDDEN_FIELDS[x].type,
+                name: HIDDEN_FIELDS[x].name,
+                value: HIDDEN_FIELDS[x].value
+            });
+            $(wrapper).append(field);
+        }
 
         return wrapper;
     }
 
-    function generateDisplayedFields() {
+    function generateVisibleFields() {
+        var wrapper = document.createElement("div");
+        $(wrapper).addClass("visibleFields");
+
+        for(var x = 0; x < VISIBLE_FIELDS.length; x++) {
+            var label = document.createElement("label");
+            $(label).addClass("fieldLabel");
+            $(label).text(VISIBLE_FIELDS[x].label);
+
+            var field = document.createElement("input");
+            $(field).attr({
+                type: "text",
+                name: VISIBLE_FIELDS[x].name,
+                readonly: VISIBLE_FIELDS[x].readonly,
+            });
+            $(label).addClass("fieldInput");
+
+            var fieldContainer = document.createElement("div");
+            $(fieldContainer).append(label);
+            $(fieldContainer).append(field);
+            $(fieldContainer).addClass("fieldContainer");
+
+            $(wrapper).append(fieldContainer);
+
+        }
+
+        return wrapper;
+    }
+
+    function generateFields() {
 
         var transactionTypeLabel = document.createElement("label");
         $(transactionTypeLabel).text("Transaction Type: ");
@@ -103,7 +144,7 @@ var PaymentForm = function()  {
         $(wrapper).append(currencyContainer);
         $(wrapper).append(radioCC);
         $(wrapper).append(radioInvoice);
-        $(wrapper).addClass("displayedFields");
+        $(wrapper).addClass("visibleFields");
 
         return wrapper;
     }
@@ -152,13 +193,13 @@ var PaymentForm = function()  {
     }
 
     function constructor() {
-        // data.access_key = "77246056409d34449977303b767c984c";
-        // data.profile_id = "60DC420E-7BF0-4BAE-8C43-4F30C5F153C5";
-        // data.transaction_uuid = generateUniqid();
-        // data.signed_field_names = "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency";
-        // data.unsigned_field_names = "";
-        // data.signed_date_time = new Date().toISOString().split(".").shift() + "Z";
-        // data.locale = "en";
+        data.access_key = "77246056409d34449977303b767c984c";
+        data.profile_id = "60DC420E-7BF0-4BAE-8C43-4F30C5F153C5";
+        data.transaction_uuid = generateUniqid();
+        data.signed_field_names = "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency";
+        data.unsigned_field_names = "";
+        data.signed_date_time = new Date().toISOString().split(".").shift() + "Z";
+        data.locale = "en";
     }
 
     function generateUniqid() {

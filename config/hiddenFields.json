@@ -1,9 +1,0 @@
-{
-    "access_key": "77246056409d34449977303b767c984c",
-    "profile_id": "60DC420E-7BF0-4BAE-8C43-4F30C5F153C5",
-    "transaction_uuid": "",
-    "signed_field_names": "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency",
-    "unsigned_field_names": "",
-    "signed_date_time": "",
-    "locale": "en"
-  }
