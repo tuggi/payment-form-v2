@@ -106,11 +106,11 @@ var PaymentForm = function()  {
         $(radio).addClass("radio");
         
         var radioLabel = document.createElement("label");
-        $(radioLabel).text(label);
+        $(radioLabel).append(radio);
+        $(radioLabel).append(label);
         $(radioLabel).addClass("radioLabel");
 
         var wrapper = document.createElement("div");
-        $(wrapper).append(radio);
         $(wrapper).append(radioLabel);
         $(wrapper).addClass("radioContainer");
 
